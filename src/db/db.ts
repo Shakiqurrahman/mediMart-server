@@ -3,7 +3,7 @@ import { config } from '../config/config';
 
 export const connectDB = async () => {
     try {
-        mongoose.connect(config.mongodb_uri as string);
+        mongoose.connect(config.MONGODB_URI as string);
     } catch (error) {
         console.log('MongoDB connection Failed : ', error);
         process.exit(1); //current process will stop!! - [node js]

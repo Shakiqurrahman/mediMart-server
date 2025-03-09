@@ -18,11 +18,11 @@ const auth = (...requiredRoles: TUserRole[]) => {
             if (!token) {
                 throw new AppError(
                     httpStatus.FORBIDDEN,
-                    'You are not authorized!',
+                    'Invalid Token!',
                 );
             }
 
-            try {
+            // try {
                 // checking if the given token is valid
                 const decoded = jwt.verify(
                     token,
@@ -64,9 +64,9 @@ const auth = (...requiredRoles: TUserRole[]) => {
                 req.user = decoded as JwtPayload;
                 next();
                 // eslint-disable-next-line no-unused-vars, @typescript-eslint/no-unused-vars
-            } catch (error) {
-                throw new AppError(httpStatus.FORBIDDEN, 'Invalid token');
-            }
+            // } catch (error) {
+            //     throw new AppError(httpStatus.FORBIDDEN, 'Invalid token');
+            // }
         },
     );
 };

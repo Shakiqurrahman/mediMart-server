@@ -28,6 +28,8 @@ const userModel = new Schema<IUser>(
             enum: ['active', 'blocked'],
             default: 'active',
         },
+        address: String,
+        phone: String,
         isDeleted: {
             type: Boolean,
             default: false,

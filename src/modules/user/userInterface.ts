@@ -11,6 +11,8 @@ export type TUser = {
     password: string;
     role: string;
     userStatus: 'active' | 'blocked';
+    phone ?: string;
+    address ?: string;
     isDeleted: boolean;
 };
 

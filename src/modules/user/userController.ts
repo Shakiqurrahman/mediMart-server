@@ -25,7 +25,20 @@ const getAllUsers = catchAsync(async (req, res) => {
     });
 });
 
+const updateUser = catchAsync(async (req, res) => {
+    const { userId } = req.user;
+    const updatedUser = await userService.updateUserByIdInDB(userId, req.body);
+
+    sendResponse(res, {
+        statusCode: status.OK,
+        success: true,
+        message: 'Updated successfully!',
+        data: updatedUser,
+    });
+});
+
 export const userController = {
     getUserById,
     getAllUsers,
+    updateUser,
 };

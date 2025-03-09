@@ -9,7 +9,9 @@ const createProductInDB = async (payload: TProduct) => {
 };
 
 const getAllProductsFromDB = async () => {
-    const products = await Product.find({ isDeleted: false });
+    const products = await Product.find({ isDeleted: false }).sort({
+        createdAt: -1,
+    });
     return products;
 };
 

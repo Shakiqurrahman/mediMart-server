@@ -48,15 +48,15 @@ const loginUserFromDB = async (payload: TLoginPayload) => {
     );
 
     if (!user || !(await user.comparePassword(payload.password))) {
-        throw new AppError(status.UNAUTHORIZED, 'Invalid credentials');
+        throw new AppError(status.UNAUTHORIZED, 'Invalid credentials!');
     }
 
     if (user?.isDeleted) {
-        throw new AppError(status.UNAUTHORIZED, 'This user is deleted !');
+        throw new AppError(status.UNAUTHORIZED, 'This user is deleted!');
     }
 
     if (user.userStatus === 'blocked') {
-        throw new AppError(status.UNAUTHORIZED, 'This user is blocked');
+        throw new AppError(status.UNAUTHORIZED, 'This user is blocked!');
     }
 
     const { password, ...restUser } = user.toObject();

@@ -2,6 +2,7 @@ import status from 'http-status';
 import catchAsync from '../../utils/catchAsync';
 import sendResponse from '../../utils/sendResponse';
 import { userService } from './userService';
+import { userValidation } from './userValidation';
 
 const getUserById = catchAsync(async (req, res) => {
     const { userId } = req.user;
@@ -27,7 +28,11 @@ const getAllUsers = catchAsync(async (req, res) => {
 
 const updateUser = catchAsync(async (req, res) => {
     const { userId } = req.user;
-    const updatedUser = await userService.updateUserByIdInDB(userId, req.body);
+    const validatedData = userValidation.updateValidation.parse(req.body);
+    const updatedUser = await userService.updateUserByIdInDB(
+        userId,
+        validatedData,
+    );
 
     sendResponse(res, {
         statusCode: status.OK,

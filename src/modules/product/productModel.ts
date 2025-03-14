@@ -22,6 +22,7 @@ const productModel = new Schema<TProduct>(
             type: String,
             required: true,
         },
+        thumbnail: String,
         isStock: {
             type: Boolean,
             default: true,

@@ -14,6 +14,7 @@ export type TUser = {
     phone ?: string;
     address ?: string;
     isDeleted: boolean;
+    avatarUrl?: string;
 };
 
 type TUserMethods = {

@@ -28,6 +28,7 @@ const userModel = new Schema<IUser>(
             enum: ['active', 'blocked'],
             default: 'active',
         },
+        avatarUrl : String,
         address: String,
         phone: String,
         isDeleted: {

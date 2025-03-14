@@ -7,6 +7,7 @@ const createProductValidation = z.object({
         .number({ required_error: 'Price is required' })
         .positive('Price must be a positive number'),
     quantity: z.number({ required_error: 'Quantity is required' }),
+    category: z.string({ required_error: 'Category is required' }),
     isStock: z.boolean().default(true),
     requiredPrescriptions: z.boolean().default(false),
     manufacturer: z.string().optional(),

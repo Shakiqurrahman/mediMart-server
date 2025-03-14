@@ -18,6 +18,10 @@ const productModel = new Schema<TProduct>(
             type: Number,
             required: true,
         },
+        category: {
+            type: String,
+            required: true,
+        },
         isStock: {
             type: Boolean,
             default: true,

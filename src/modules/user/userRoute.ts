@@ -1,5 +1,6 @@
 import { Router } from 'express';
 import auth from '../../middlewares/auth';
+import { upload } from '../../middlewares/multer';
 import { USER_ROLE } from './userConstant';
 import { userController } from './userController';
 
@@ -14,6 +15,7 @@ router.get(
 router.patch(
     '/me',
     auth(USER_ROLE.admin, USER_ROLE.user),
+    upload.single('imageUrl'),
     userController.updateUser,
 );
 

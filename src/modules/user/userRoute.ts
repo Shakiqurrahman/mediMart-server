@@ -14,8 +14,8 @@ router.get(
 );
 router.patch(
     '/me',
-    auth(USER_ROLE.admin, USER_ROLE.user),
     upload.single('imageUrl'),
+    auth(USER_ROLE.admin, USER_ROLE.user),
     userController.updateUser,
 );
 

@@ -22,7 +22,6 @@ export const uploadToCloudinary = async (
                 { fetch_format: 'auto' },
             ],
         });
-
         return { secure_url: result.secure_url };
     } catch (error) {
         console.error('Error uploading to Cloudinary:', error);

@@ -1,5 +1,7 @@
 import status from 'http-status';
+import AppError from '../../errors/AppError';
 import catchAsync from '../../utils/catchAsync';
+import { uploadToCloudinary } from '../../utils/cloudinary';
 import sendResponse from '../../utils/sendResponse';
 import { productService } from './productService';
 import { productValidation } from './productValidation';
@@ -9,7 +11,23 @@ const createProduct = catchAsync(async (req, res) => {
         req.body,
     );
 
-    const product = await productService.createProductInDB(validatedBody);
+    let imageUrl: string | undefined = undefined;
+
+    if (req.file) {
+        const uploadResult = await uploadToCloudinary(req.file.path);
+        imageUrl = uploadResult.secure_url;
+
+        if (!uploadResult) {
+            throw new AppError(status.INTERNAL_SERVER_ERROR, 'Upload failed');
+        }
+    }
+
+    const product = await productService.createProductInDB({
+        thumbnail: imageUrl,
+        ...validatedBody,
+        price: Number(validatedBody.price),
+        quantity: Number(validatedBody.quantity),
+    });
 
     sendResponse(res, {
         statusCode: status.CREATED,
@@ -48,10 +66,23 @@ const updateProduct = catchAsync(async (req, res) => {
         req.body,
     );
 
-    const updatedProduct = await productService.updateProductInDB(
-        productId,
-        validatedBody,
-    );
+    let imageUrl: string | undefined = undefined;
+
+    if (req.file) {
+        const uploadResult = await uploadToCloudinary(req.file.path);
+        imageUrl = uploadResult.secure_url;
+
+        if (!uploadResult) {
+            throw new AppError(status.INTERNAL_SERVER_ERROR, 'Upload failed');
+        }
+    }
+
+    const updatedProduct = await productService.updateProductInDB(productId, {
+        thumbnail: imageUrl,
+        ...validatedBody,
+        price: Number(validatedBody.price),
+        quantity: Number(validatedBody.quantity),
+    });
 
     sendResponse(res, {
         statusCode: status.OK,

@@ -18,7 +18,7 @@ const getUserByIdFromDB = async (userId: string) => {
 };
 
 const getAllUsersFromDB = async () => {
-    const users = await User.find({ role: 'user', isDeleted: false });
+    const users = await User.find({ role: 'user'});
     return users;
 };
 

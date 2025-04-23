@@ -23,11 +23,6 @@ const userModel = new Schema<IUser>(
             enum: ['admin', 'user'],
             default: 'user',
         },
-        userStatus: {
-            type: String,
-            enum: ['active', 'blocked'],
-            default: 'active',
-        },
         avatarUrl : String,
         address: String,
         phone: String,

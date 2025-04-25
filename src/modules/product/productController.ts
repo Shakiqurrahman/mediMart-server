@@ -7,9 +7,12 @@ import { productService } from './productService';
 import { productValidation } from './productValidation';
 
 const createProduct = catchAsync(async (req, res) => {
-    const validatedBody = productValidation.createProductValidation.parse(
-        req.body,
-    );
+    const validatedBody = productValidation.createProductValidation.parse({
+        ...req.body,
+        price: Number(req.body.price),
+        quantity: Number(req.body.quantity),
+        requiredPrescriptions: Boolean(req.body.requiredPrescriptions),
+    });
 
     let imageUrl: string | undefined = undefined;
 
@@ -62,9 +65,12 @@ const getProductById = catchAsync(async (req, res) => {
 
 const updateProduct = catchAsync(async (req, res) => {
     const { productId } = req.params;
-    const validatedBody = productValidation.updateProductValidation.parse(
-        req.body,
-    );
+    const validatedBody = productValidation.updateProductValidation.parse({
+        ...req.body,
+        price: Number(req.body.price),
+        quantity: Number(req.body.quantity),
+        requiredPrescriptions: Boolean(req.body.requiredPrescriptions),
+    });
 
     let imageUrl: string | undefined = undefined;
 

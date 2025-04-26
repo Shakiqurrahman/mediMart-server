@@ -64,6 +64,7 @@ const getProductById = catchAsync(async (req, res) => {
 });
 
 const updateProduct = catchAsync(async (req, res) => {
+    console.log(req.body, req.files);
     const { productId } = req.params;
     const validatedBody = productValidation.updateProductValidation.parse({
         ...req.body,
@@ -72,9 +73,9 @@ const updateProduct = catchAsync(async (req, res) => {
         requiredPrescriptions: Boolean(req.body.requiredPrescriptions),
     });
 
-    let imageUrl: string | undefined = undefined;
+    let imageUrl: string | undefined = "";
 
-    if (req.file) {
+    if (req.file) {        
         const uploadResult = await uploadToCloudinary(req.file.path);
         imageUrl = uploadResult.secure_url;
 
